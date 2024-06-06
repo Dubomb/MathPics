@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
+import 'src/components/screens/homepage.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "MathPics",
+      title: 'Camera',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.lightBlue
+        ),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        body: Column(
-          children: [
-            const Center(
-              child: Text('Hello World!'),
-            ),
-            ElevatedButton(onPressed: () {}, child: const Text('Press me!')),
-          ],
-        ),
-      ),
+      home: HomePage(),
     );
   }
 }
