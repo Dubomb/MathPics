@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import base64
 
-blur = (4, 4)
+blur = (5, 5)
 border_type = 0
 
 lower_threshold = 50
@@ -26,7 +26,7 @@ def split_image(image):
 
     height, width = image.shape[:2]
     min_area = height * width / image_scale
-    filtered_contours = [cv2.contourArea(c) > min_area for c in contours]
+    filtered_contours = [c for c in contours if cv2.contourArea(c) > min_area]
 
     bounding_images = []
     for c in filtered_contours:
@@ -39,3 +39,6 @@ def split_image(image):
 
 def resize_image(image, new_width, new_height):
     return cv2.resize(image, (new_width, new_height), interpolation=inter_mode)
+
+def is_operator(image):
+    return False
