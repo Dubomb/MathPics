@@ -6,5 +6,5 @@ def predict(encoded_image):
     symbol_images = ims.split_image(decoded_image)
 
     for symbol in symbol_images:
-        resized = ims.resize_image(symbol)
-        print(ims.is_operator(symbol))
+        resized = ims.resize_image(symbol, 28, 28)
+        print(ims.is_operator(resized))

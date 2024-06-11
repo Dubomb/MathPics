@@ -12,9 +12,9 @@ def predict_image():
     data = request.json
     encoded_image = data['image']
 
-    with open('beach.jpg', 'rb') as f:
+    with open('eqt.jpg', 'rb') as f:
         bytes = f.read()
-        prs.predict(bytes)
+        prs.predict(base64.b64encode(bytes))
 
     response = {
         'prediction': 'Yes.'
