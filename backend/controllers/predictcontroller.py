@@ -7,12 +7,12 @@ import services.predictservice as prs
 
 predict_controller = Blueprint('predict_controller', __name__)
 
-@predict_controller.post("/predict/")
+@predict_controller.post("/")
 def predict_image():
     data = request.json
     encoded_image = data['image']
 
-    with open('eqt.jpg', 'rb') as f:
+    with open('operatorshw.jpg', 'rb') as f:
         bytes = f.read()
         prs.predict(base64.b64encode(bytes))
 
