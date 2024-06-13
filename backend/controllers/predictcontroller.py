@@ -12,7 +12,7 @@ def predict_image():
     data = request.json
     encoded_image = data['image']
 
-    with open('operatorshw.jpg', 'rb') as f:
+    with open('eqttest.jpg', 'rb') as f:
         bytes = f.read()
         prs.predict(base64.b64encode(bytes))
 

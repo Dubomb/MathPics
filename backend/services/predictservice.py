@@ -9,4 +9,4 @@ def predict(encoded_image):
 
     for symbol in symbol_images:
         resized = ims.resize_image(symbol, 28, 28)
-        print(ims.is_operator(resized))
+        print(f'Matched to: {ims.is_operator(resized)}')

@@ -16,6 +16,7 @@ inter_mode = cv2.INTER_CUBIC
 template_path = '../services/templates'
 templates = []
 template_matches = ['+', '/', '(', '*', ')', '-']
+match_threshold = 0.85
 
 
 def init_templates():
@@ -60,14 +61,14 @@ def is_operator(image):
     best = 0
     curr_min = -1
     for i, template in enumerate(templates):
-        res = cv2.matchTemplate(image, template, cv2.TM_CCORR_NORMED)
+        res = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
         min_val, _, _, _ = cv2.minMaxLoc(res)
         if min_val > curr_min:
             best = i
             curr_min = min_val
-
-    print(template_matches[best])
+    print(curr_min)
+    print(f'Best match: {template_matches[best]}')
     cv2.imshow('operator', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    return False
+    return '' if curr_min < match_threshold else template_matches[best]
