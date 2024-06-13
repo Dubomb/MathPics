@@ -7,7 +7,7 @@ def predict(encoded_image):
 
     symbol_images = ims.split_image(decoded_image)
 
-    for symbol in symbol_images:
+    for _, symbol in symbol_images:
         bg = ims.add_background(symbol, 150, 150, 20)
         cv2.imshow('padded', bg)
         cv2.waitKey(0)

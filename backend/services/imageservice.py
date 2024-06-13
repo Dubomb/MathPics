@@ -35,11 +35,12 @@ def split_image(image):
     filtered_contours = [c for c in contours if cv2.contourArea(c) > min_area]
 
     bounding_images = []
-    for c in filtered_contours:
-        x, y, w, h = cv2.boundingRect(c)
+    for contour in filtered_contours:
+        x, y, w, h = cv2.boundingRect(contour)
         cropped = image[y:y + h, x:x + w]
-        bounding_images.append(cropped)
+        bounding_images.append((x, cropped))
     
+    bounding_images.sort()
     return bounding_images
 
 
