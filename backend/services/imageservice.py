@@ -13,17 +13,6 @@ image_scale = 5000
 
 inter_mode = cv2.INTER_CUBIC
 
-template_path = '../services/templates'
-templates = []
-template_matches = ['+', '/', '(', '*', ')', '-']
-match_threshold = 0.85
-
-
-def init_templates():
-    for name in os.listdir(template_path):
-        path = os.path.join(template_path, name)
-        templates.append(cv2.imread(path, cv2.IMREAD_GRAYSCALE))
-
 
 def convert_image(encoded):
     image_data = base64.b64decode(encoded)
@@ -54,21 +43,18 @@ def split_image(image):
     return bounding_images
 
 
-def resize_image(image, new_width, new_height):
-    return cv2.resize(image, (new_width, new_height), interpolation=inter_mode)
-
-def is_operator(image):
-    best = 0
-    curr_min = -1
-    for i, template in enumerate(templates):
-        res = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
-        min_val, _, _, _ = cv2.minMaxLoc(res)
-        if min_val > curr_min:
-            best = i
-            curr_min = min_val
-    print(curr_min)
-    print(f'Best match: {template_matches[best]}')
-    cv2.imshow('operator', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    return '' if curr_min < match_threshold else template_matches[best]
+def add_background(image, bg_width, bg_height, padding):
+    im_size = bg_width - padding * 2
+    curr_height, curr_width = image.shape[:2]
+    if curr_height > curr_width:
+        scale = im_size / curr_height
+    else:
+        scale = im_size / curr_width
+    curr_width = int(curr_width * scale)
+    curr_height = int(curr_height * scale)
+    resized = cv2.resize(image, (curr_width, curr_height), interpolation=cv2.INTER_CUBIC)
+    bg = np.full((bg_width, bg_height), 255, dtype=np.uint8)
+    bg_xpos = (bg_width - curr_width) // 2
+    bg_ypos = (bg_height - curr_height) // 2
+    bg[bg_ypos:bg_ypos+curr_height, bg_xpos:bg_xpos+curr_width] = resized
+    return bg
