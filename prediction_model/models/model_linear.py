@@ -4,13 +4,11 @@ import torch.nn.functional as F
 
 class ModelLinear(nn.Module):
     def __init__(self):
-        super.__init__()
+        super(ModelLinear, self).__init__()
 
         self.flatten_image = nn.Flatten()
         self.model = nn.Sequential(
-            nn.Linear(64 * 64, 1024),
-            nn.ReLU(),
-            nn.Linear(1024, 512),
+            nn.Linear(32 * 32, 512),
             nn.ReLU(),
             nn.Linear(512, 256),
             nn.ReLU(),
