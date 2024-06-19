@@ -15,7 +15,7 @@ model = ModelLinear().to(device)
 
 train_dir = 'train'
 test_dir = 'test'
-batch_size = 64
+batch_size = 128
 
 training_dataset = dl.get_dataset(train_dir)
 train_loader = dl.get_loader(training_dataset, batch_size)
@@ -26,7 +26,7 @@ test_loader = dl.get_loader(testing_dataset, batch_size)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters())
 
-epochs = 20
+epochs = 5
 
-training.train_model(train_loader, model, epochs, optimizer, loss_fn)
-testing.test_model(test_loader, model, loss_fn)
+training.train_model(device, train_loader, model, epochs, optimizer, loss_fn)
+testing.test_model(device, test_loader, model, loss_fn)

@@ -1,11 +1,13 @@
 import torch
 import torch.nn as nn
 
-def train_model(data_loader, model, epochs, optimizer, loss_fn):
+def train_model(device, data_loader, model, epochs, optimizer, loss_fn):
     size = len(data_loader.dataset)
     model.train()
     for epoch in range(epochs):
         for batch, (inputs, targets) in enumerate(data_loader):
+            inputs = inputs.to(device)
+            targets = targets.to(device)
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = loss_fn(outputs, targets)
