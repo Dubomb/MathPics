@@ -43,4 +43,9 @@ def predict(encoded_image):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         equation += get_prediction(bg)
-    print(f'equation {equation} = {eval(equation)}')
+
+    try:
+        solved = eval(equation)
+        print(f'equation {equation} evaluated to {solved}.')
+    except Exception:
+        print(f'equation {equation} could not be solved.')
