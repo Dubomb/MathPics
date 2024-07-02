@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.1
   camera: ^0.10.0+1
 
 dev_dependencies:
