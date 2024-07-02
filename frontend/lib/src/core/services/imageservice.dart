@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
 
 import 'package:frontend/src/core/services/urldata.dart' as urldata;
 
@@ -12,10 +11,10 @@ final predictUrl = Uri.parse(urldata.predictUrl);
 const headers = {'Content-Type': 'application/json'};
 
 Future<String> makePrediction(XFile image) async {
-  Uint8List bytes = await image.readAsBytes();
-  String encoded = base64Encode(bytes);
+  final Uint8List bytes = await image.readAsBytes();
+  final String encoded = base64Encode(bytes);
 
-  String body = jsonEncode({
+  final String body = jsonEncode({
     'image': encoded,
   });
 
