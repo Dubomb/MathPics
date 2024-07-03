@@ -27,9 +27,6 @@ def split_image(image):
     blurred = cv2.GaussianBlur(image, blur, border_type)
     _, binary = cv2.threshold(blurred, 127, 255, cv2.THRESH_BINARY)
     edges = cv2.Canny(binary, lower_threshold, upper_threshold)
-    cv2.imshow('image', edges)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
     contours, _ = cv2.findContours(edges.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     height, width = image.shape[:2]

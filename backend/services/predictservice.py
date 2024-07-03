@@ -39,13 +39,10 @@ def predict(encoded_image):
     equation = ''
     for _, symbol in symbol_images:
         bg = ims.add_background(symbol, 32, 32, 2)
-        cv2.imshow('image', bg)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
         equation += get_prediction(bg)
 
     try:
         solved = eval(equation)
-        print(f'equation {equation} evaluated to {solved}.')
+        return solved
     except Exception:
-        print(f'equation {equation} could not be solved.')
+        return None
